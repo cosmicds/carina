@@ -1,7 +1,6 @@
 import Vue, { createApp } from "vue";
 
-import { IconButton } from "@minids/common";
-import { FundingAcknowledgment } from "@minids/common";
+import { FundingAcknowledgment, IconButton } from "@cosmicds/vue-toolkit";
 import Carina from "./Carina.vue";
 
 import vuetify from "../plugins/vuetify";
@@ -63,7 +62,7 @@ import { WWTComponent, wwtPinia } from "@wwtelescope/engine-pinia";
 const update = (el: HTMLElement, binding: Vue.DirectiveBinding) => el.style.visibility = (binding.value) ? "hidden" : "";
 
 createApp(Carina, {
-  wwtNamespace: "wwt-minids-carina",
+  wwtNamespace: "carinads",
   wtml: {
     jwst: "https://web.wwtassets.org/specials/2023/cosmicds-carina/collection/jwst_carina.wtml",
     hubble: "https://web.wwtassets.org/specials/2023/cosmicds-carina/collection/carina_nebula.wtml",

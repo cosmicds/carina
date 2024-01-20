@@ -1,12 +1,14 @@
 {
-  "name": "@minids/carina",
+  "name": "@cosmicds/carinads",
   "version": "0.0.0",
   "dependencies": {
+    "@cosmicds/vue-toolkit": "file:/home/jon/dev/CosmicDS/vue-toolkit",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3",
-    "@minids/common": "workspace:0.0.0",
+    "@wwtelescope/engine": "^7.29.3",
+    "@wwtelescope/engine-pinia": "^0.9.0",
     "vue": "^3",
     "vuetify": "^3.1.1",
     "webpack-plugin-vuetify": "^2.0.0"

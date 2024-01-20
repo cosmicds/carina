@@ -18,7 +18,7 @@
       >
         <img
           id="splash-screen"
-          :src="require(`./assets/Carina_Nebula_Splash_Screen${mobile ? '_Mobile' : ''}_Close.png`)"
+          :src="require(`@cosmicds/vue-toolkit/assets/Carina_Nebula_Splash_Screen${mobile ? '_Mobile' : ''}_Close.png`)"
           v-click-outside="closeSplashScreen"
           max-width="70vw"
           max-height="70vh"
@@ -127,17 +127,17 @@
         <div id="credits" class="ui-text">
           <div id="icons-container">
             <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer"
-            ><img alt="CosmicDS Logo" src="../../assets/cosmicds_logo_for_dark_backgrounds.png"
+            ><img alt="CosmicDS Logo" :src="require('@cosmicds/vue-toolkit/assets/cosmicds_logo_for_dark_backgrounds.png')"
             /></a>
             <a href="https://worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer"
-              ><img alt="WWT Logo" src="../../assets/logo_wwt.png"
+              ><img alt="WWT Logo" :src="require('@cosmicds/vue-toolkit/assets/logo_wwt.png')"
             /></a>
             <a href="https://science.nasa.gov/learners" target="_blank" rel="noopener noreferrer" class="pl-1"
-              ><img alt="SciAct Logo" src="../../assets/logo_sciact.png"
+              ><img alt="SciAct Logo" :src="require('cosmicds/vue-toolkit/assets/logo_sciact.png')"
             /></a>
-            <a href="https://nasa.gov/" target="_blank" rel="noopener noreferrer" class="pl-1"
-              ><img alt="SciAct Logo" src="../../assets/NASA_Partner_color_300_no_outline.png"
-            /></a>
+            <!-- <a href="https://nasa.gov/" target="_blank" rel="noopener noreferrer" class="pl-1"
+              ><img alt="SciAct Logo" :src="require('@cosmicds/vue-toolkit/assets/NASA_Partner_color_300_no_outline.png')"
+              /></a> -->
             <!-- <ShareNetwork
               v-for="network in networks"
               :key="network.name"
@@ -335,7 +335,7 @@
 <script lang="ts">
 import { ImageSetLayer, Place } from "@wwtelescope/engine";
 import { applyImageSetLayerSetting } from "@wwtelescope/engine-helpers";
-import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets } from "@minids/common";
+import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets } from "@cosmicds/vue-toolkit";
 import { defineComponent } from "vue";
 
 type ToolType = "crossfade" | "choose-background" | null;
@@ -667,7 +667,7 @@ body {
     justify-content: center;
 
     .spinner {
-      background-image: url("../../assets/lunar_loader.gif");
+      // background-image: url("@cosmicds/vue-toolkit/assets/lunar_loader.gif");
       background-repeat: no-repeat;
       background-size: contain;
       width: 3rem;
@@ -693,7 +693,7 @@ body {
   div {
     margin: 0;
     padding: 0;
-    background-image: url("../../assets/wwt_globe_bg.png");
+    // background-image: url("@cosmicds/vue-toolkit/assets/wwt_globe_bg.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
