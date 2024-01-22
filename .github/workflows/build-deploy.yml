@@ -43,6 +43,11 @@ jobs:
           local-identifier: random
 
       - name: Run BrowserStack tests
-        run: |
-          set -xeuo pipefail
-          cd tests
+        run: yarn test-bslocal -e default,firefox,edge,safari -o reports
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          ssh-key: ${{ secrets.DEPLOY_KEY }}

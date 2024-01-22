@@ -44,9 +44,7 @@ jobs:
           local-identifier: random
 
       - name: Run BrowserStack tests
-        run: |
-          set -xeuo pipefail
-          cd tests
+        run: yarn test-bslocal -e default,firefox,edge,safari -o reports
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
