@@ -130,7 +130,7 @@
               ><img alt="CosmicDS Logo" src="https://cosmicds.github.io/cds-website/logos/cosmicds_logo_for_dark_backgrounds.png"
             /></a>
             <a href="https://worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer"
-              ><img alt="WWT Logo" src="https://cosmicds.github.io/cds-website/logos/logo_wwtt.png"
+              ><img alt="WWT Logo" src="https://cosmicds.github.io/cds-website/logos/logo_wwt.png"
             /></a>
             <a href="https://science.nasa.gov/learners" target="_blank" rel="noopener noreferrer" class="pl-1"
               ><img alt="SciAct Logo" src="https://cosmicds.github.io/cds-website/logos/logo_sciact.png"
