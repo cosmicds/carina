@@ -1,13 +1,24 @@
 const { VuetifyPlugin } = require('webpack-plugin-vuetify');
 const { defineConfig } = require("@vue/cli-service")
+const webpack = require("webpack");
+const path = require("path");
 
 module.exports = defineConfig({
   publicPath: "./",
   
   configureWebpack: {
     plugins: [
-      new VuetifyPlugin()
-    ]
+      new VuetifyPlugin(),
+      new webpack.DefinePlugin({
+        // https://github.com/vuejs/vue-cli/pull/7443
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
+      })
+    ],
+    resolve: {
+      alias: {
+        vue: path.resolve("./node_modules/vue")
+      }
+    }
   },
 
   // Needed for BrowserStack/Safari testing as of 2023 March. This makes the
@@ -18,5 +29,9 @@ module.exports = defineConfig({
     client: {
       overlay: false
     }
+  },
+
+  css: {
+    extract: false
   }
 });
