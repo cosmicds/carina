@@ -14,20 +14,51 @@
         :model-value="showSplashScreen"
         absolute
         opacity="0.6"
+        :style="cssVars"
         id="splash-overlay"
       >
-        <img
-          id="splash-screen"
-          :src="require(`./assets/Carina_Nebula_Splash_Screen${mobile ? '_Mobile' : ''}_Close.png`)"
-          v-click-outside="closeSplashScreen"
-          max-width="70vw"
-          max-height="70vh"
-          contain
-        />
-        <a
-          id="splash-close"
-          @click="closeSplashScreen">
-        </a>
+      <div
+        id="splash-screen"
+        v-click-outside="closeSplashScreen"
+        :style="cssVars"
+      >
+        <div
+          id="first-splash-row"
+      >
+        <div
+            id="close-splash-button"
+            @click="closeSplashScreen"
+            >&times;</div>
+          <div id="splash-screen-text">
+            <p>Want to see in the</p>
+            <p class="highlight">INFRARED</p>
+            <p>like JWST can?</p>
+          </div>
+        </div>
+        
+        <div id="splash-screen-guide">
+          <v-row>
+            <v-col cols="12">
+              <font-awesome-icon
+                icon="video"
+              /> Watch the demo 
+            </v-col>
+            <v-col cols="12">
+              <font-awesome-icon
+                icon="book-open"
+              /> Learn more
+            </v-col>
+          </v-row>
+        </div>
+        
+        <div id="splash-screen-acknowledgements">
+          Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
+          
+          <div id="splash-screen-logos">
+            <credit-logos/>
+          </div>
+        </div>
+      </div>
       </v-overlay>
 
       <transition name="fade">
@@ -241,7 +272,7 @@
                   The Hubble Space Telescope takes pictures in visible light, like our eyes. The James Webb Space Telescope takes pictures in infrared light. Some “night vision” cameras image objects in the dark using infrared light. Animals and people “glow” in infrared in the dark because we usually have higher temperatures than our surroundings.
                   <br><br><br>
                   <h3>Credits:</h3>
-                  <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Mini Stories Team:</h4>
+                  <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Team:</h4>
                   Jon Carifio<br>
                   John Lewis<br>
                   Pat Udomprasert<br>
@@ -306,7 +337,7 @@
                     <v-row>
                       <v-col cols="12">
                         <h3>Credits:</h3>
-                        <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a> Mini Stories Team:</h4>
+                        <h4><a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">CosmicDS</a>  Team:</h4>
                         Jon Carifio<br>
                         John Lewis<br>
                         Pat Udomprasert<br>
@@ -525,6 +556,7 @@ export default defineComponent({
 
     cssVars() {
       return {
+        '--accent-color': this.accentColor,
         '--app-content-height': this.showTextSheet ? '66%' : '100%'
       };
     }
@@ -581,6 +613,17 @@ export default defineComponent({
 </script>
 
 <style lang="less">
+@font-face {
+  font-family: "Highway Gothic Narrow";
+  src: url("https://projects.cosmicds.cfa.harvard.edu/cds-website/fonts/HighwayGothicNarrow.ttf");
+}
+
+:root {
+  --default-font-size: clamp(0.7rem, min(1.7vh, 1.7vw), 1.1rem);
+  --default-line-height: clamp(1rem, min(2.2vh, 2.2vw), 1.6rem);
+  --time-content-max-width: 700px;
+}
+
 html {
   height: 100%;
   margin: 0;
@@ -764,6 +807,17 @@ body {
   gap: 5px;
   pointer-events: auto;
 }
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #aec2fd; // lighter variant of sky color
+    pointer-events: auto;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
 #credits {
   color: #ddd;
@@ -965,41 +1019,127 @@ video {
   color: white;
 }
 
-#close-splash-icon {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: #F0AB52;
+#splash-overlay {
+  align-items: center;
+  justify-content: center;
+  font-size: min(8vw, 7vh);
 }
-
 
 #splash-screen {
-  width: auto;
-  height: auto;
-  max-width: ~"min(70vw, 1624px)";
-  max-height: ~"min(70vh, 2030px)";
-  object-fit: contain;
-}
+  color: var(--moon-color);
 
-#splash-overlay .v-overlay__content {
-  position: fixed;
-  margin: auto;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-
-  a:hover {
-    cursor: pointer;
+  @media (max-width: 699px) {
+    max-height: 80vh;
+    max-width: 90vw;
   }
-}
 
-#splash-close {
-  position: absolute;
-  top: 5.5%;
-  left: 89%;
-  height: 4%;
-  width: 3.8%;
-  //border: 1px solid red;
+  @media (min-width: 700px) {
+    max-height: 85vh;
+    max-width: min(70vw, 800px);
+  }
+
+
+  background-color: black;
+  backdrop-filter: blur(5px);
+  justify-content: space-around;
+  align-content: center;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+
+  border-radius: 10%;
+  border: min(1.2vw, 0.9vh) solid #6facf1;
+  overflow: auto;
+  font-family: 'Highway Gothic Narrow', 'Roboto', sans-serif;
+
+  div {
+    margin-inline: auto;
+    text-align: center;
+  }
+  // make a paragraph inside the div centered horizontally and vertically
+  p {
+    font-family: 'Highway Gothic Narrow', 'Roboto', sans-serif;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+    
+  p.highlight {
+    color: red;
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
+  
+  p.small {
+    font-size: var(--default-font-size);
+    font-weight: bold;
+  }
+
+  #first-splash-row {
+    width: 100%;
+  }
+
+  #close-splash-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 1.75rem;
+    text-align: end;
+    color: var(--accent-color);
+    font-size: min(8vw, 5vh);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  #splash-screen-text {
+    // in the grid, the text is in the 2nd column
+    display: flex;
+    flex-direction: column;
+    line-height: 130%;
+    
+  }
+
+  #splash-screen-guide {
+    margin-block: 1.5em;
+    font-size: min(5vw, 4vh);
+    line-height: 140%;
+    width: 75%;
+
+    .v-col{
+      padding: 0;
+    }
+    
+    .svg-inline--fa {
+      color:var(--accent-color);
+      margin: 0 10px;
+    }
+  }
+
+  #splash-screen-acknowledgements {
+    font-size: calc(1.7 * var(--default-font-size));
+    line-height: calc(1.5 * var(--default-line-height));
+    width: 60%; 
+  }
+
+  #splash-screen-logos {
+    margin-block: 0.75em;
+
+    img {
+    height: 5vmin;
+    vertical-align: middle;
+    margin: 2px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      img {
+        height: 24px;
+      }
+    }
+
+    svg {
+      vertical-align: middle;
+      height: 24px;
+    }
+  }
 }
 
 #show-layers-button {

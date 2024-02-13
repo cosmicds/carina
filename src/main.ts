@@ -1,6 +1,6 @@
 import Vue, { createApp } from "vue";
 
-import { FundingAcknowledgment, IconButton } from "@cosmicds/vue-toolkit";
+import { FundingAcknowledgment, IconButton, CreditLogos } from "@cosmicds/vue-toolkit";
 import Carina from "./Carina.vue";
 
 import vuetify from "../plugins/vuetify";
@@ -98,6 +98,7 @@ createApp(Carina, {
   .component('font-awesome-icon', FontAwesomeIcon)
   .component('icon-button', IconButton)
   .component('funding-acknowledgment', FundingAcknowledgment)
+  .component('credit-logos', CreditLogos)
 
   // Mount
   .mount("#app");
