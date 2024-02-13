@@ -1026,7 +1026,7 @@ video {
 }
 
 #splash-screen {
-  color: var(--moon-color);
+  color: #E0E0E0;
 
   @media (max-width: 699px) {
     max-height: 80vh;
