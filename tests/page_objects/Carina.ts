@@ -22,7 +22,7 @@ const carinaElements = {
     selector: "#splash-screen"
   },
   splashClose: {
-    selector: "#splash-close"
+    selector: "#close-splash-button"
   },
   topContent: {
     selector: "#top-content"
