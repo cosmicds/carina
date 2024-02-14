@@ -17,48 +17,49 @@
         :style="cssVars"
         id="splash-overlay"
       >
-      <div
-        id="splash-screen"
-        v-click-outside="closeSplashScreen"
-        :style="cssVars"
-      >
         <div
-          id="first-splash-row"
-      >
-        <div
-            id="close-splash-button"
-            @click="closeSplashScreen"
-            >&times;</div>
-          <div id="splash-screen-text">
-            <p>Want to see in the</p>
-            <p class="highlight">INFRARED</p>
-            <p>like JWST can?</p>
+          id="splash-screen"
+          v-click-outside="closeSplashScreen"
+          :style="cssVars"
+        >
+          <div
+            id="first-splash-row"
+          >
+            <div
+              id="close-splash-button"
+              @click="closeSplashScreen"
+            >&times;
+            </div>
+            <div id="splash-screen-text">
+              <p>Want to see in the</p>
+              <p class="highlight">INFRARED</p>
+              <p>like JWST can?</p>
+            </div>
           </div>
-        </div>
-        
-        <div id="splash-screen-guide">
-          <v-row>
-            <v-col cols="12">
-              <font-awesome-icon
-                icon="video"
-              /> Watch the demo 
-            </v-col>
-            <v-col cols="12">
-              <font-awesome-icon
-                icon="book-open"
-              /> Learn more
-            </v-col>
-          </v-row>
-        </div>
-        
-        <div id="splash-screen-acknowledgements">
-          Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
           
-          <div id="splash-screen-logos">
-            <credit-logos/>
+          <div id="splash-screen-guide">
+            <v-row>
+              <v-col cols="12">
+                <font-awesome-icon
+                  icon="video"
+                /> Watch the demo 
+              </v-col>
+              <v-col cols="12">
+                <font-awesome-icon
+                  icon="book-open"
+                /> Learn more
+              </v-col>
+            </v-row>
+          </div>
+        
+          <div id="splash-screen-acknowledgements">
+            Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
+            
+            <div id="splash-screen-logos">
+              <credit-logos/>
+            </div>
           </div>
         </div>
-      </div>
       </v-overlay>
 
       <transition name="fade">
