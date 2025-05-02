@@ -167,7 +167,7 @@
               ><img alt="SciAct Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_sciact.png"
             /></a>
             <a href="https://nasa.gov/" target="_blank" rel="noopener noreferrer" class="pl-1"
-              ><img alt="SciAct Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/NASA_Grantee_color_no_outline.png"
+              ><img alt="NASA Grantee Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/NASA_Grantee_color_no_outline.png"
             /></a>
             <!-- <ShareNetwork
               v-for="network in networks"
