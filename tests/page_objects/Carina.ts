@@ -94,7 +94,7 @@ const bottomContent = {
     }
   },
   props: {
-    creditIconCount: 4
+    creditIconCount: 3
   }
 };
 
