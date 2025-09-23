@@ -2,7 +2,7 @@
   "name": "@cosmicds/carinads",
   "version": "0.0.0",
   "dependencies": {
-    "@cosmicds/vue-toolkit": "^0.1.5",
+    "@cosmicds/vue-toolkit": "~0.2.3",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",

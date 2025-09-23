@@ -163,14 +163,14 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@cosmicds/vue-toolkit@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@cosmicds/vue-toolkit/-/vue-toolkit-0.1.5.tgz#6562ee14c1739ff2c6cce2b29f4ab1a9b2c16d4f"
-  integrity sha512-SN6soGHX/s0TdeSBF5ibhr8PiBa8T6jvLrX+sfWmdUUVP65BXpNgjZOwYrPv+CB40lNEIH6V2A9OeJDRXc1J7Q==
+"@cosmicds/vue-toolkit@~0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@cosmicds/vue-toolkit/-/vue-toolkit-0.2.3.tgz#c5545cbf1e8ec72c79d2cb84a797d5af1c476ab0"
+  integrity sha512-U3JLNk80b+F1lCehyJcgSK0B/VIBMszDUU3f2pXTjHn12usd39TD0FHZxUyRpYl3RGpmo9A5gYxsxgbx17PPsg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.5.1"
     "@fortawesome/free-solid-svg-icons" "^6.5.1"
-    "@fortawesome/vue-fontawesome" "^3.0.3"
+    "@fortawesome/vue-fontawesome" "^3.0.6"
     "@kyvg/vue3-notification" "^2.9.1"
     "@mdi/font" "^7.4.47"
     "@wwtelescope/engine-pinia" "^0.9.0"
@@ -246,6 +246,11 @@
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.1.1.tgz#15212b003928f7a37a64ce1f3b7d02b2a2701af5"
   integrity sha512-U5azn4mcUVpjHe4JO0Wbe7Ih8e3VbN83EH7OTBtA5/QGw9qcPGffqcmwsLyZYgEkpVkYbq/6dX1Iyl5KUGMp6Q==
+
+"@fortawesome/vue-fontawesome@^3.0.6":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.1.2.tgz#a61d44522bc0be3283ccd9811ed5a2de282c168a"
+  integrity sha512-mhYnBIuuW8OIMHf31kOjaBmyE7BMrwBorhrOHVud6vTTu+7IPQNWB+DWaHoE75v10dRF5s/dFtcrgE7vKSEWwQ==
 
 "@hapi/hoek@^9.0.0", "@hapi/hoek@^9.3.0":
   version "9.3.0"

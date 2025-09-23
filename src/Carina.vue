@@ -55,7 +55,9 @@
             Brought to you by <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer">Cosmic Data Stories</a> and <a href="https://www.worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer">WorldWide Telescope</a>.
             
             <div id="splash-screen-logos">
-              <credit-logos/>
+              <credit-logos
+                :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa-grantee']"
+              />
             </div>
           </div>
         </div>
@@ -157,15 +159,9 @@
 
         <div id="credits" class="ui-text">
           <div id="icons-container">
-            <a href="https://www.cosmicds.cfa.harvard.edu/" target="_blank" rel="noopener noreferrer"
-              ><img alt="CosmicDS Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/cosmicds_logo_for_dark_backgrounds.png"
-            /></a>
-            <a href="https://worldwidetelescope.org/home/" target="_blank" rel="noopener noreferrer"
-              ><img alt="WWT Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_wwt.png"
-            /></a>
-            <a href="https://science.nasa.gov/learners" target="_blank" rel="noopener noreferrer" class="pl-1"
-              ><img alt="SciAct Logo" src="https://projects.cosmicds.cfa.harvard.edu/cds-website/logos/logo_sciact.png"
-            /></a>
+            <credit-logos
+              :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa-grantee']"
+            /> 
             <!-- <ShareNetwork
               v-for="network in networks"
               :key="network.name"
