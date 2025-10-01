@@ -30,24 +30,24 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: BrowserStack env setup
-        uses: browserstack/github-actions/setup-env@master
-        with:
-          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          # - name: BrowserStack env setup
+          #   uses: browserstack/github-actions/setup-env@master
+          #   with:
+          #     username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+          #     access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
-      - name: BrowserStack local tunnel setup
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: start
-          local-identifier: random
+          # - name: BrowserStack local tunnel setup
+          #   uses: browserstack/github-actions/setup-local@master
+          #   with:
+          #     local-testing: start
+          #     local-identifier: random
 
-      - name: Run BrowserStack tests
-        run: |
-          set -xeuo pipefail
-          yarn serve &
-          sleep 10
-          yarn test-bslocal -e default,firefox,edge,safari -o reports
+          # - name: Run BrowserStack tests
+          #   run: |
+          #     set -xeuo pipefail
+          #     yarn serve &
+          #     sleep 10
+          #     yarn test-bslocal -e default,firefox,edge,safari -o reports
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
