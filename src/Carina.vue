@@ -353,14 +353,39 @@
         </v-card>
       </v-dialog>
     </div>
+    <v-container>
+      <v-expand-transition>
+        <user-experience
+          v-if="showRating"
+          :question="question"
+          icon-size="3x"
+          base-color="white"
+          @dismiss="(_rating: UserExperienceRating | null, _comments: string | null) => {
+            showRating = false;
+          }"
+          @rating="(rating: UserExperienceRating | null) => {
+            currentRating = rating;
+            updateUserExperienceInfo(currentRating, currentComments);
+          }"
+          @finish="(rating: UserExperienceRating | null, comments: string | null) => {
+            currentRating = rating;
+            currentComments = comments;
+            updateUserExperienceInfo(currentRating, currentComments);
+            showRating = false;
+          }"
+        >
+        </user-experience>
+      </v-expand-transition>
+    </v-container>
   </v-app>
 </template>
 
 <script lang="ts">
 import { ImageSetLayer, Place } from "@wwtelescope/engine";
 import { applyImageSetLayerSetting } from "@wwtelescope/engine-helpers";
-import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets } from "@cosmicds/vue-toolkit";
+import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets, API_BASE_URL, type UserExperienceRating } from "@cosmicds/vue-toolkit";
 import { defineComponent } from "vue";
+import { v4 } from "uuid";
 
 type ToolType = "crossfade" | "choose-background" | null;
 type SheetType = "text" | "video" | null;
@@ -396,6 +421,9 @@ export default defineComponent({
   },
 
   data() {
+    const maybeUUID = window.localStorage.getItem("cds-carina-uuid");
+    const uuid = maybeUUID ?? v4();
+
     return {
       layers: {} as Record<string,ImageSetLayer>,
       cfOpacity: 50, // out of 100
@@ -414,7 +442,15 @@ export default defineComponent({
       networks: [
         { name: "facebook", color: "#1877f2", text: "Share" },
         { name: "twitter", color: "#1da1f2", text: "Tweet" },
-      ]
+      ],
+      showRating: false,
+      storyRatingUrl: `${API_BASE_URL}/stories/user-experience/carina`,
+      uuid,
+      currentRating: null as UserExperienceRating | null,
+      currentComments: null as string | null,
+      question: Math.random() > 0.5 ? 
+        "Is this interesting?" :
+        "Are you learning something new?",
     };
   },
 
@@ -481,6 +517,10 @@ export default defineComponent({
       window.addEventListener('keypress', splashScreenListener);
 
     });
+  },
+
+  mounted() {
+    this.ratingDisplaySetup();
   },
 
   computed: {
@@ -585,7 +625,51 @@ export default defineComponent({
         rollRad: 1.799,
         instant: instant,
       });
-    }
+    },
+
+    async ratingDisplaySetup() {
+      const existsResponse = await fetch(`${this.storyRatingUrl}/uuid`, {
+        method: "GET",
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        headers: { "Authorization": process.env.VUE_APP_CDS_API_KEY ?? "" }
+      });
+
+      // NB: If we want to ask multiple questions, this logic can be adjusted
+      const existsContent = await existsResponse.json();
+      const exists = existsResponse.status === 200 && existsContent.ratings?.length > 0;
+
+      if (exists) {
+        return;
+      }
+
+      setTimeout(() => {
+        this.showRating = true;
+      }, 30_000);
+    },
+
+    updateUserExperienceInfo(rating: UserExperienceRating | null, comments: string | null) {
+      const body: Record<string, unknown> = {
+        uuid: this.uuid,
+        question: this.question,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        story_name: "carina",
+      };
+      if (rating) {
+        body.rating = rating;
+      }
+      if (comments) {
+        body.comments = comments;
+      }
+      fetch(this.storyRatingUrl, {
+        method: "PUT",
+        headers: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          "Authorization": process.env.VUE_APP_CDS_API_KEY ?? "",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+    },
   },
 
   watch: {
@@ -1189,6 +1273,30 @@ video {
 @media(max-width: 300px) {
   #tabs h3 {
     font-size: 0.67em;
+  }
+}
+
+.rating-root {
+  position: absolute;
+  bottom: 0;
+  padding: 5px;
+  width: var(--rating-width);
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 0 !important;
+  border: solid 1px white;
+  border-radius: 10px;
+
+  .comments-box {
+    width: 100%;
+  }
+
+  .v-card-text {
+    padding-bottom: 0;
+  }
+
+  .v-card-actions {
+    padding: 0;
   }
 }
 </style>
