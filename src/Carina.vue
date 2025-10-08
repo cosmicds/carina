@@ -444,7 +444,7 @@ export default defineComponent({
         { name: "twitter", color: "#1da1f2", text: "Tweet" },
       ],
       showRating: false,
-      storyRatingUrl: `${API_BASE_URL}/stories/user-experience/carina`,
+      storyRatingUrl: `${API_BASE_URL}/carina/user-experience`,
       uuid,
       currentRating: null as UserExperienceRating | null,
       currentComments: null as string | null,
