@@ -1,3 +1,5 @@
+// https://vuetifyjs.com/en/features/icon-fonts/#mdi-css
+import '@mdi/font/css/materialdesignicons.css'; // Ensure you are using css-loader
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { createVuetify } from 'vuetify';
 
