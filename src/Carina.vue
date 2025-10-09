@@ -220,6 +220,7 @@
         location="bottom"
         v-model="showTextSheet"
         transition="dialog-bottom-transition"
+        :retain-focus="!showRating"
       >
         <v-card height="100%">
         <v-tabs
@@ -359,7 +360,6 @@
           v-if="showRating"
           :question="question"
           icon-size="3x"
-          base-color="white"
           @dismiss="(_rating: UserExperienceRating | null, _comments: string | null) => {
             showRating = false;
           }"
@@ -374,6 +374,17 @@
             showRating = false;
           }"
         >
+          <template #footer>
+            <v-btn
+              class="privacy-button"
+              color="#BDBDBD"
+              href="https://www.cfa.harvard.edu/privacy-statement"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            Privacy Policy
+            </v-btn>
+          </template>
         </user-experience>
       </v-expand-transition>
     </v-container>
@@ -449,7 +460,7 @@ export default defineComponent({
       currentRating: null as UserExperienceRating | null,
       currentComments: null as string | null,
       question: Math.random() > 0.5 ? 
-        "Is this interesting?" :
+        "Does this spark your curiosity?" :
         "Are you learning something new?",
     };
   },
@@ -1277,18 +1288,37 @@ video {
 }
 
 .rating-root {
-  position: absolute;
+  position: absolute !important;
+  right: 5px;
   bottom: 0;
   padding: 5px;
-  width: var(--rating-width);
-  left: 50%;
-  transform: translateX(-50%);
+  width: fit-content !important;
+  // left: 50%;
+  // transform: translateX(-50%);
   gap: 0 !important;
-  border: solid 1px white;
-  border-radius: 10px;
+  border: solid 1px #EFEFEF !important;
+  border-radius: 10px !important;
+  background-color: #222222 !important;
+  opacity: 0.95 !important;
+  z-index: 20000;
+
+  .rating-title {
+    color: #EFEFEF;
+    font-size: var(--default-font-size);
+  }
+
+  .rating-icon-row {
+    
+    padding: 0px;
+
+    .svg-inline--fa {
+      height: 30px;
+    }
+  }
 
   .comments-box {
     width: 100%;
+    margin-top: 20px;
   }
 
   .v-card-text {
@@ -1297,6 +1327,22 @@ video {
 
   .v-card-actions {
     padding: 0;
+  }
+
+  .privacy-button {
+    font-size: 10px;
+    position: absolute;
+    left: 5px;
+  }
+
+  .v-btn.bg-success {
+    position: absolute;
+    right: 5px;
+  }
+
+  .close-button {
+    position: absolute !important;
+    color: white !important;
   }
 }
 </style>
