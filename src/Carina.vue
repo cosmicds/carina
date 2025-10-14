@@ -639,7 +639,7 @@ export default defineComponent({
     },
 
     async ratingDisplaySetup() {
-      const existsResponse = await fetch(`${this.storyRatingUrl}/uuid`, {
+      const existsResponse = await fetch(`${this.storyRatingUrl}/${this.uuid}`, {
         method: "GET",
         // eslint-disable-next-line @typescript-eslint/naming-convention
         headers: { "Authorization": process.env.VUE_APP_CDS_API_KEY ?? "" }
