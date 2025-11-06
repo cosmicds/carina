@@ -375,15 +375,28 @@
           }"
         >
           <template #footer>
-            <v-btn
-              class="privacy-button"
-              color="#BDBDBD"
-              href="https://www.cfa.harvard.edu/privacy-statement"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-            Privacy Policy
-            </v-btn>
+            <div id="user-experience-footer">
+              <v-btn
+                class="rating-opt-put"
+                color="#BDBDBD"
+                size="small"
+                variant="text"
+                @click="onOptOutClicked"
+              >
+              Don't show again
+              </v-btn>
+              <v-btn
+                class="privacy-button"
+                color="#BDBDBD"
+                href="https://www.cfa.harvard.edu/privacy-statement"
+                size="small"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="text"
+              >
+              Privacy Policy
+              </v-btn>
+            </div>
           </template>
         </user-experience>
       </v-expand-transition>
@@ -434,6 +447,7 @@ export default defineComponent({
   data() {
     const maybeUUID = window.localStorage.getItem("cds-carina-uuid");
     const uuid = maybeUUID ?? v4();
+    const ratingOptedOut = window.localStorage.getItem("cds-carina-rating-optout")?.toLowerCase() === "true";
 
     return {
       layers: {} as Record<string,ImageSetLayer>,
@@ -454,6 +468,7 @@ export default defineComponent({
         { name: "facebook", color: "#1877f2", text: "Share" },
         { name: "twitter", color: "#1da1f2", text: "Tweet" },
       ],
+      ratingOptedOut,
       showRating: false,
       storyRatingUrl: `${API_BASE_URL}/carina/user-experience`,
       uuid,
@@ -639,6 +654,10 @@ export default defineComponent({
     },
 
     async ratingDisplaySetup() {
+      if (this.ratingOptedOut) {
+        return;
+      }
+
       const existsResponse = await fetch(`${this.storyRatingUrl}/${this.uuid}`, {
         method: "GET",
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -681,6 +700,12 @@ export default defineComponent({
         body: JSON.stringify(body),
       });
     },
+
+    onOptOutClicked() {
+      this.showRating= false;
+      this.ratingOptedOut = true;
+      window.localStorage.setItem("cds-carina-rating-optout", "true");
+    }
   },
 
   watch: {
@@ -1329,10 +1354,10 @@ video {
     padding: 0;
   }
 
-  .privacy-button {
-    font-size: 10px;
-    position: absolute;
-    left: 5px;
+  #user-experience-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
   }
 
   .v-btn.bg-success {
