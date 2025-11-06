@@ -378,7 +378,7 @@
             <div id="user-experience-footer">
               <v-btn
                 class="rating-opt-put"
-                color="error"
+                color="#BDBDBD"
                 size="small"
                 variant="text"
                 @click="onOptOutClicked"
