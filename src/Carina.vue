@@ -1360,11 +1360,6 @@ video {
     gap: 5px;
   }
 
-  .v-btn.bg-success {
-    position: absolute;
-    right: 5px;
-  }
-
   .close-button {
     position: absolute !important;
     color: white !important;
