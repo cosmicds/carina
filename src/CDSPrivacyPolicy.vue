@@ -28,8 +28,7 @@
               target="_blank"
               >CosmicDS</a> team to improve the educational experience.
           </p>
-          <p style="text-align: center; margin-top: 1em; font-size: 0.9em">
-            Learn more about our 
+          <p style="text-align: right; margin-top: 1em; font-size: 0.9em">
             <a 
             href="https://cfa.harvard.edu/privacy-statement" 
             rel="noopener noreferrer external" 
