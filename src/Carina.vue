@@ -394,13 +394,13 @@
                 rel="noopener noreferrer"
                 variant="text"
               >
-              Privacy Policy
+              What is this?
               </v-btn>
-              <cds-privacy-policy v-model="showPrivacyDialog" />
             </div>
           </template>
         </user-experience>
       </v-expand-transition>
+      <cds-privacy-policy v-model="showPrivacyDialog" />
     </v-container>
   </v-app>
 </template>
