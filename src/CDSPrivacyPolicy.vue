@@ -5,7 +5,6 @@
     scrim="false"
     v-model="showPrivacyDialog"
     max-width="400px"
-    
   >
     <v-card class="cds-privacy-policy__card">
       <div class="cds-privacy-policy__close">
@@ -13,6 +12,7 @@
           class="cds-privacy-policy__close-icon" 
           density="compact"
           icon="mdi-close"
+          aria-label="Close privacy policy dialog"
           @click="showPrivacyDialog = false"
           @keyup.enter="showPrivacyDialog = false"
           />
@@ -24,7 +24,7 @@
             <a 
               class="cds-privacy-policy__link"
               href="https://www.cosmicds.cfa.harvard.edu/" 
-              rel="noopener noreffer external" 
+              rel="noopener noreferrer external" 
               target="_blank"
               >CosmicDS</a> team to improve the educational experience.
           </p>
@@ -32,7 +32,7 @@
             Learn more about our 
             <a 
             href="https://cfa.harvard.edu/privacy-statement" 
-            rel="noopener noreffer external" 
+            rel="noopener noreferrer external" 
             target="_blank"
             >Privacy Policy</a>
           </p>
