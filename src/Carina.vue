@@ -388,7 +388,7 @@
               <v-btn
                 class="privacy-button"
                 color="#BDBDBD"
-                href="https://www.cfa.harvard.edu/privacy-statement"
+                @click="showPrivacyDialog = true"
                 size="small"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -396,6 +396,7 @@
               >
               Privacy Policy
               </v-btn>
+              <cds-privacy-policy v-model="showPrivacyDialog" />
             </div>
           </template>
         </user-experience>
@@ -477,6 +478,7 @@ export default defineComponent({
       question: Math.random() > 0.5 ? 
         "Does this spark your curiosity?" :
         "Are you learning something new?",
+      showPrivacyDialog: false as boolean,
     };
   },
 
