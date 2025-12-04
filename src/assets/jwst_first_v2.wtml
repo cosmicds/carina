@@ -96,9 +96,9 @@ NIRCam was built by a team at the University of Arizona and Lockheed Martin’s 
       </ImageSet>
     </ForegroundImageSet>
   </Place>
-  <ImageSet BandPass="IR" BaseDegreesPerTile="180" BaseTileLevel="0" BottomsUp="False" CenterX="0" CenterY="0" DataSetType="Sky" ElevationModel="False" FileType="jpeg" Generic="False" MeanRadius="1" Name="unWISE color, from W2 and W1 bands" Projection="Healpix" QuadTreeMap="0123" ReferenceFrame="Sky" Rotation="0" Sparse="True" StockSet="False" TileLevels="8" Url="http://alasky.u-strasbg.fr/unWISE/color-W2-W1W2-W1/Norder{0}/Dir{1}/Npix{2}" WidthFactor="1">
+  <ImageSet BandPass="IR" BaseDegreesPerTile="180" BaseTileLevel="0" BottomsUp="False" CenterX="0" CenterY="0" DataSetType="Sky" ElevationModel="False" FileType="jpeg" Generic="False" MeanRadius="1" Name="unWISE color, from W2 and W1 bands" Projection="Healpix" QuadTreeMap="0123" ReferenceFrame="Sky" Rotation="0" Sparse="True" StockSet="False" TileLevels="8" Url="https://alasky.u-strasbg.fr/unWISE/color-W2-W1W2-W1/Norder{0}/Dir{1}/Npix{2}" WidthFactor="1">
     <Credits>IPAC/NASA - D. Lang for the reprocessing</Credits>
-    <ThumbnailUrl>http://alasky.u-strasbg.fr/unWISE/color-W2-W1W2-W1/preview.jpg</ThumbnailUrl>
+    <ThumbnailUrl>https://alasky.u-strasbg.fr/unWISE/color-W2-W1W2-W1/preview.jpg</ThumbnailUrl>
   </ImageSet>
   <Place Angle="0" AngularSize="0" Constellation="PEG" DataSetType="Sky" Dec="33.9621954626131" Magnitude="0" Name="JWST Stephan's Quintet (MIRI)" Opacity="100" RA="22.6001036467436" Rotation="0" Thumbnail="http://data1.wwtassets.org/packages/2022/07_jwst/weic2208b/thumb.jpg" ZoomLevel="1.031446312671409">
     <ForegroundImageSet>
