@@ -43,14 +43,15 @@ export interface TestEnvironment {
 }
 
 export interface Configuration {
-  src_folders: string[],
-  page_objects_path: string[],
-  custom_assertions_path: string[],
-  disable_typescript: boolean,
-  selenium?: SeleniumSettings,
-  webdriver?: WebDriverSettings,
-  globals_path: string,
-  test_settings: { [env: string]: TestEnvironment | undefined }
+  src_folders: string[];
+  page_objects_path: string[];
+  custom_assertions_path: string[];
+  custom_commands_path?: string[];
+  disable_typescript: boolean;
+  selenium?: SeleniumSettings;
+  webdriver?: WebDriverSettings;
+  globals_path: string;
+  test_settings: { [env: string]: TestEnvironment | undefined };
 }
 
 export function browserCapabilities(browserName: string, browserVersion: string, osName: string, osVersion: string): BrowserCapabilities {
