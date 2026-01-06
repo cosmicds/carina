@@ -27,7 +27,6 @@ const tests: CarinaTests = {
   driver: null as unknown as WebDriver,
 
   before: async function(browser: NightwatchBrowser): Promise<void> {
-    console.log("BEFORE");
     browser.globals.waitForConditionTimeout = 30000;
     this.app = browser.page.Carina();
     this.sections = this.app.section as CarinaSections;
@@ -161,13 +160,13 @@ const tests: CarinaTests = {
     infoSheet.expect.element("@infoText").to.be.present;
     infoSheet.expect.element("@infoText").to.not.be.visible;
 
-    await percyScreenshot(this.driver, "Info sheet - Text Tab");
+    await percyScreenshot(this.driver, "Info sheet - WWT Tab");
 
     infoSheet.click("@infoTabHeader");
     infoSheet.expect.element("@wwtText").to.be.present;
     infoSheet.expect.element("@wwtText").to.not.be.visible;
 
-    await percyScreenshot(this.driver, "Info sheet - WWT Tab");
+    await percyScreenshot(this.driver, "Info sheet - Info Tab");
   },
 
   after: async function(browser: NightwatchBrowser) {
