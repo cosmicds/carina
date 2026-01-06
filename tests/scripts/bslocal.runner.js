@@ -13,11 +13,14 @@ try {
   console.log('Connecting local');
   nightwatch.bs_local = bsLocal = new browserstack.Local();
   bsLocal.start({ key: process.env.BROWSERSTACK_ACCESS_KEY }, function (error) {
-    if (error) throw error;
+    if (error) {
+      console.error(error);
+      throw error;
+    }
 
     console.log('Connected. Now testing...');
     nightwatch.cli(function (argv) {
-      nightwatch.CliRunner(argv)
+      nightwatch.CliRunner({ ...argv, verbose: false })
         .setup()
         .runTests()
         .catch((err) => {

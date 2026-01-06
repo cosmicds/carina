@@ -40,6 +40,7 @@ export interface TestEnvironment {
   selenium_host?: string;
   selenium_port?: number;
   webdriver?: WebDriverSettings;
+  verbose?: boolean;
 }
 
 export interface Configuration {

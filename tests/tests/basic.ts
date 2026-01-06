@@ -8,6 +8,9 @@ import {
 
 import { assert } from "chai";
 
+import type { WebDriver } from "selenium-webdriver";
+import { percyScreenshot } from "@percy/selenium-webdriver";
+
 import {
   expectAllNotPresent,
   expectAllVisible,
@@ -21,18 +24,23 @@ const tests: CarinaTests = {
   // We need to do this since the value get initialized in the `before` method
   app: null as unknown as (EnhancedPageObject & CarinaPage),
   sections: null as unknown as CarinaSections,
+  driver: null as unknown as WebDriver,
 
-  before: function(browser: NightwatchBrowser): void {
+  before: async function(browser: NightwatchBrowser): Promise<void> {
+    console.log("BEFORE");
     browser.globals.waitForConditionTimeout = 30000;
     this.app = browser.page.Carina();
     this.sections = this.app.section as CarinaSections;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error The `driver` member is defined
+    this.driver = browser.driver;
   },
 
   'Navigation and loading': function() {
     this.app.navigate().waitForReady();
   },
 
-  'Initial configuration': function() {
+  'Initial configuration': async function() {
     app.expect.title().to.equal(this.app.props.title);
     expectAllVisible(this.app, [
       "@splashScreen",
@@ -67,6 +75,11 @@ const tests: CarinaTests = {
 
     bottomContent.expect.elements("@creditIcon").count.to.equal(bottomContent.props.creditIconCount);
 
+    this.app.waitForElementVisible("@userExperience", 30_000);
+    this.sections.userExperience.click("@closeButton");
+    this.app.expect.element("@userExperience").to.not.be.present;
+
+    await percyScreenshot(this.driver, "Initial");
   },
 
   'Layer buttons': function() {
@@ -144,8 +157,8 @@ const tests: CarinaTests = {
     infoSheet.expect.element("@wwtText").to.not.be.visible;
   },
 
-  after: function(browser: NightwatchBrowser) {
-    browser.end();
+  after: async function(browser: NightwatchBrowser) {
+    await browser.end();
   }
 };
 
