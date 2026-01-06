@@ -2,32 +2,34 @@ import {
   EnhancedSectionInstance,
   EnhancedPageObject,
   Definition,
+  type NightwatchExpectResult,
 } from "nightwatch";
 
 type Context = EnhancedPageObject | EnhancedSectionInstance;
 
-export function expectAllNotVisible(context: Context, selectors: Definition[]): void {
-  selectors.forEach(selector => {
-    context.expect.element(selector).to.not.be.visible;
-  });
+type SelectorMapFunction = (context: Context, selector: Definition) => NightwatchExpectResult | PromiseLike<NightwatchExpectResult>;
+
+export async function expectMap(context: Context, selectors: Definition[], mapFunction: SelectorMapFunction): Promise<NightwatchExpectResult[]> {
+  function partial(selector: Definition) {
+    return mapFunction(context, selector);
+  }
+  return Promise.all(selectors.map(partial));
 }
 
-export function expectAllPresent(context: Context, selectors: Definition[]): void {
-  selectors.forEach(selector => {
-    context.expect.element(selector).to.be.present;
-  });
+export async function expectAllNotVisible(context: Context, selectors: Definition[]) {
+  return expectMap(context, selectors, (context, selector) => context.expect.element(selector).to.not.be.visible);
 }
 
-export function expectAllNotPresent(context: Context, selectors: Definition[]): void {
-  selectors.forEach(selector => {
-    context.expect.element(selector).to.not.be.present;
-  });
+export async function expectAllPresent(context: Context, selectors: Definition[]) {
+  return expectMap(context, selectors, (context, selector) => context.expect.element(selector).to.be.present);
 }
 
-export function expectAllVisible(context: Context, selectors: Definition[]): void {
-  selectors.forEach(selector => {
-    context.expect.element(selector).to.be.visible;
-  });
+export async function expectAllNotPresent(context: Context, selectors: Definition[]) {
+  return expectMap(context, selectors, (context, selector) => context.expect.element(selector).to.not.be.present);
+}
+
+export function expectAllVisible(context: Context, selectors: Definition[]) {
+  return expectMap(context, selectors, (context, selector) => context.expect.element(selector).to.be.visible);
 }
 
 export function nthOfTypeSelector(selector: string, n: number): string {
