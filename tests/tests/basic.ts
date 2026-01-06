@@ -8,6 +8,9 @@ import {
 
 import { assert } from "chai";
 
+import type { WebDriver } from "selenium-webdriver";
+import { percyScreenshot } from "@percy/selenium-webdriver";
+
 import {
   expectAllNotPresent,
   expectAllVisible,
@@ -21,35 +24,39 @@ const tests: CarinaTests = {
   // We need to do this since the value get initialized in the `before` method
   app: null as unknown as (EnhancedPageObject & CarinaPage),
   sections: null as unknown as CarinaSections,
+  driver: null as unknown as WebDriver,
 
-  before: function(browser: NightwatchBrowser): void {
+  before: async function(browser: NightwatchBrowser): Promise<void> {
     browser.globals.waitForConditionTimeout = 30000;
     this.app = browser.page.Carina();
     this.sections = this.app.section as CarinaSections;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error The `driver` member is defined
+    this.driver = browser.driver;
   },
 
   'Navigation and loading': function() {
     this.app.navigate().waitForReady();
   },
 
-  'Initial configuration': function() {
-    app.expect.title().to.equal(this.app.props.title);
-    expectAllVisible(this.app, [
+  'Initial configuration': async function() {
+    await app.expect.title().to.equal(this.app.props.title);
+    await expectAllVisible(this.app, [
       "@splashScreen",
       "@splashClose",
     ]);
-    expectAllNotPresent(this.app, [
+    await expectAllNotPresent(this.app, [
       "@videoDialog",
       "@infoSheet"
     ]);
 
-    this.app.click("@splashClose");
-    expectAllNotPresent(this.app, [
+    await this.app.click("@splashClose");
+    await expectAllNotPresent(this.app, [
       "@splashScreen",
       "@splashClose"
     ]);
 
-    expectAllVisible(this.sections.topContent, [
+    await expectAllVisible(this.sections.topContent, [
       "@videoIcon",
       "@showHideButton",
       "@resetIcon",
@@ -57,7 +64,7 @@ const tests: CarinaTests = {
     ]);
 
     const bottomContent = this.sections.bottomContent;
-    expectAllVisible(bottomContent, [
+    await expectAllVisible(bottomContent, [
       "@tools",
       "@hubbleButton",
       "@jwstButton",
@@ -65,68 +72,83 @@ const tests: CarinaTests = {
       "@credits",
     ]);
 
-    bottomContent.expect.elements("@creditIcon").count.to.equal(bottomContent.props.creditIconCount);
+    await bottomContent.expect.elements("@creditIcon").count.to.equal(bottomContent.props.creditIconCount);
 
+    await this.app.waitForElementVisible("@userExperience", 30_000);
+    await this.sections.userExperience.click("@closeButton");
+    await this.app.expect.element("@userExperience").to.not.be.present;
+
+    await percyScreenshot(this.driver, "Initial");
   },
 
-  'Layer buttons': function() {
+  'Layer buttons': async function() {
     const bottomContent = this.sections.bottomContent;
-    bottomContent.click("@hubbleButton");
-    bottomContent.expect.element("@slider").value.to.equal("0");
+    await bottomContent.click("@hubbleButton");
+    await bottomContent.expect.element("@slider").value.to.equal("0");
 
-    bottomContent.click("@jwstButton");
-    bottomContent.expect.element("@slider").value.to.equal("100");
+    await bottomContent.click("@jwstButton");
+    await bottomContent.expect.element("@slider").value.to.equal("100");
 
     const topContent = this.sections.topContent;
-    topContent.click("@showHideButton");
-    
-    expectAllNotPresent(bottomContent, [
+    await topContent.click("@showHideButton");
+
+    await expectAllNotPresent(bottomContent, [
       "@tools",
       "@hubbleButton",
       "@jwstButton",
       "@slider"
     ]);
-    bottomContent.expect.element("@credits").to.be.visible;
+    await bottomContent.expect.element("@credits").to.be.visible;
 
-    topContent.click("@showHideButton");
-    expectAllVisible(bottomContent, [
+    await percyScreenshot(this.driver, "Images hidden");
+
+    await topContent.click("@showHideButton");
+    await expectAllVisible(bottomContent, [
       "@tools",
       "@hubbleButton",
       "@jwstButton",
       "@slider",
       "@credits"
     ]);
+
+    await percyScreenshot(this.driver, "Images shown");
   },
 
-  'Open video': function() {
-    this.sections.topContent.click("@videoIcon");
-    this.app.expect.element("@videoDialog").to.be.visible;
-    expectAllVisible(this.sections.videoDialog, [
+  'Open video': async function() {
+    await this.sections.topContent.click("@videoIcon");
+    await this.app.expect.element("@videoDialog").to.be.visible;
+    await expectAllVisible(this.sections.videoDialog, [
       "@video", "@closeIcon",
     ]);
 
-    this.sections.videoDialog.click("@closeIcon");
-    this.app.expect.element("@videoDialog").to.not.be.present;
+    await percyScreenshot(this.driver, "Video open");
+
+    await this.sections.videoDialog.click("@closeIcon");
+    await this.app.expect.element("@videoDialog").to.not.be.present;
+
+    await percyScreenshot(this.driver, "Video closed");
   },
 
-  'Info text': function(browser: NightwatchBrowser) {
-    this.sections.topContent.click("@textIcon");
-    this.app.expect.element("@infoSheet").to.be.visible;
+  'Info text': async function(browser: NightwatchBrowser) {
+    await this.sections.topContent.click("@textIcon");
+    await this.app.expect.element("@infoSheet").to.be.visible;
 
     const infoSheet = this.sections.infoSheet;
-    expectAllVisible(infoSheet, [
+    await expectAllVisible(infoSheet, [
       "@closeIcon",
       "@infoTabHeader",
       "@wwtTabHeader",
       "@infoText"
     ]);
-    infoSheet.expect.element("@wwtText").to.not.be.present;
-    infoSheet.expect.elements("@tabHeader").count.to.equal(infoSheet.props.tabCount);
+    await infoSheet.expect.element("@wwtText").to.not.be.present;
+    await infoSheet.expect.elements("@tabHeader").count.to.equal(infoSheet.props.tabCount);
+
+    await percyScreenshot(this.driver, "Info sheet open");
     
     // getWindowSize seems to return the height of the browser
     // (that is, including the tab and address bars)
     // but we want just the height of the viewport
-    this.app.getElementSize("html", (windowSize) => {
+    await this.app.getElementSize("html", (windowSize) => {
       this.app.getElementSize("@mainContent", (mainContentSize) => {
         const wsize = windowSize.value as WindowSize;
         const csize = mainContentSize.value as WindowSize;
@@ -135,17 +157,21 @@ const tests: CarinaTests = {
       });
     });
 
-    infoSheet.click("@wwtTabHeader");
-    infoSheet.expect.element("@infoText").to.be.present;
-    infoSheet.expect.element("@infoText").to.not.be.visible;
+    await infoSheet.click("@wwtTabHeader");
+    await infoSheet.expect.element("@infoText").to.be.present;
+    await infoSheet.expect.element("@infoText").to.not.be.visible;
 
-    infoSheet.click("@infoTabHeader");
-    infoSheet.expect.element("@wwtText").to.be.present;
-    infoSheet.expect.element("@wwtText").to.not.be.visible;
+    await percyScreenshot(this.driver, "Info sheet - WWT Tab");
+
+    await infoSheet.click("@infoTabHeader");
+    await infoSheet.expect.element("@wwtText").to.be.present;
+    await infoSheet.expect.element("@wwtText").to.not.be.visible;
+
+    await percyScreenshot(this.driver, "Info sheet - Info Tab");
   },
 
-  after: function(browser: NightwatchBrowser) {
-    browser.end();
+  after: async function(browser: NightwatchBrowser) {
+    await browser.end();
   }
 };
 

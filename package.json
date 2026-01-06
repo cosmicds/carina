@@ -15,7 +15,11 @@
     "webpack-plugin-vuetify": "^2.0.0"
   },
   "devDependencies": {
+    "@percy/cli": "^1.31.7",
+    "@percy/nightwatch": "^2.2.0-beta.0",
+    "@percy/selenium-webdriver": "^2.2.5",
     "@types/nightwatch": "^2.3.30",
+    "@types/selenium-webdriver": "4.1.27",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "@typescript-eslint/typescript-estree": "7.0.0-alpha.0",
@@ -26,7 +30,7 @@
     "@vue/eslint-config-typescript": "^11.0.2",
     "browserstack-local": "^1.5.5",
     "chai": "^4.3.7",
-    "chromedriver": "^128",
+    "chromedriver": "^143",
     "edgedriver": "^5.3.9",
     "eslint": "^8.31.0",
     "eslint-plugin-vue": "^9.8.0",
@@ -43,6 +47,7 @@
     "lint": "vue-cli-service lint src --no-fix",
     "serve": "vue-cli-service serve",
     "test-local": "cd tests; tsc; nightwatch -c dist/local.conf.js --group tests",
-    "test-bslocal": "cd tests; tsc; node scripts/bslocal.runner.js -c dist/bslocal.conf.js --group tests"
+    "test-bslocal": "cd tests; tsc; node scripts/bslocal.runner.js -c dist/bslocal.conf.js --group tests",
+    "test-percy": "yarn percy exec -- yarn test-bslocal"
   }
 }

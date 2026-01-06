@@ -3,6 +3,8 @@
 // but the transpiled JS version of this is used as a config file for BrowserStack
 // so we're beholden to their formatting in this case
 
+import percy from "@percy/nightwatch";
+
 import {
   addBrowsers,
   browserCapabilities,
@@ -42,7 +44,9 @@ const nightwatchConfig: Configuration = {
         ...browserCapabilities('chrome', 'latest', 'Windows', '10'),
       }
     }
-  }
+  },
+
+  custom_commands_path: [percy.path],
 };
 
 // Matrix over OSes/browsers that we want to use

@@ -34,7 +34,10 @@ const carinaElements = {
     selector: "#video-container",
   },
   infoSheet: {
-    selector: "#text-bottom-sheet"
+    selector: "#text-bottom-sheet",
+  },
+  userExperience: {
+    selector: ".rating-root",
   }
 };
 
@@ -134,6 +137,14 @@ const infoSheet = {
 
 };
 
+const userExperience = {
+  elements: {
+    closeButton: {
+      selector: "i.mdi-close",
+    },
+  },
+};
+
 const carinaSections = {
   topContent: {
     selector: "#top-content",
@@ -150,6 +161,10 @@ const carinaSections = {
   infoSheet: {
     selector: "#text-bottom-sheet",
     ...infoSheet
+  },
+  userExperience: {
+    selector: ".rating-root",
+    ...userExperience,
   }
 };
 

@@ -3,6 +3,8 @@
 // but the transpiled JS version of this is used as a config file for BrowserStack
 // so we're beholden to their formatting in this case
 
+import percy from "@percy/nightwatch";
+
 import {
   Configuration,
 } from "./config";
@@ -43,6 +45,8 @@ const nightwatchConfig: Configuration = {
   },
 
   globals_path: '',
+
+  custom_commands_path: [percy.path],
   
   test_settings: {
     default: {
