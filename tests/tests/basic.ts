@@ -82,7 +82,7 @@ const tests: CarinaTests = {
     await percyScreenshot(this.driver, "Initial");
   },
 
-  'Layer buttons': function() {
+  'Layer buttons': async function() {
     const bottomContent = this.sections.bottomContent;
     bottomContent.click("@hubbleButton");
     bottomContent.expect.element("@slider").value.to.equal("0");
@@ -92,6 +92,8 @@ const tests: CarinaTests = {
 
     const topContent = this.sections.topContent;
     topContent.click("@showHideButton");
+
+    await percyScreenshot(this.driver, "Images hidden");
     
     expectAllNotPresent(bottomContent, [
       "@tools",
@@ -109,20 +111,25 @@ const tests: CarinaTests = {
       "@slider",
       "@credits"
     ]);
+
+
+    await percyScreenshot(this.driver, "Images shown");
   },
 
-  'Open video': function() {
+  'Open video': async function() {
     this.sections.topContent.click("@videoIcon");
     this.app.expect.element("@videoDialog").to.be.visible;
     expectAllVisible(this.sections.videoDialog, [
       "@video", "@closeIcon",
     ]);
 
+    await percyScreenshot(this.driver, "Video open");
+
     this.sections.videoDialog.click("@closeIcon");
     this.app.expect.element("@videoDialog").to.not.be.present;
   },
 
-  'Info text': function(browser: NightwatchBrowser) {
+  'Info text': async function(browser: NightwatchBrowser) {
     this.sections.topContent.click("@textIcon");
     this.app.expect.element("@infoSheet").to.be.visible;
 
@@ -135,6 +142,8 @@ const tests: CarinaTests = {
     ]);
     infoSheet.expect.element("@wwtText").to.not.be.present;
     infoSheet.expect.elements("@tabHeader").count.to.equal(infoSheet.props.tabCount);
+
+    await percyScreenshot(this.driver, "Info sheet open");
     
     // getWindowSize seems to return the height of the browser
     // (that is, including the tab and address bars)
@@ -152,9 +161,13 @@ const tests: CarinaTests = {
     infoSheet.expect.element("@infoText").to.be.present;
     infoSheet.expect.element("@infoText").to.not.be.visible;
 
+    await percyScreenshot(this.driver, "Info sheet - Text Tab");
+
     infoSheet.click("@infoTabHeader");
     infoSheet.expect.element("@wwtText").to.be.present;
     infoSheet.expect.element("@wwtText").to.not.be.visible;
+
+    await percyScreenshot(this.driver, "Info sheet - WWT Tab");
   },
 
   after: async function(browser: NightwatchBrowser) {
