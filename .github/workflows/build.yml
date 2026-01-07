@@ -59,7 +59,6 @@ jobs:
 
       - name: Get Percy URL
         id: percy_url
-        if: ${{ github.event_name == 'pull_request' }}
         run: |
           URL=$(grep "percy.io" bslog.txt | awk '{print $NF}')
           echo "Percy URL: $URL"
@@ -71,6 +70,7 @@ jobs:
           local-testing: stop
           
   comment:
+    if: ${{ github.event_name == 'pull_request' }}
     needs: [build]
     permissions:
       pull-requests: write
