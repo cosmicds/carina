@@ -62,6 +62,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           URL=$(grep "percy.io" bslog.txt | awk '{print $NF}')
+          echo "Percy URL: $URL"
           echo url=$URL >> $GITHUB_OUTPUT
         
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
