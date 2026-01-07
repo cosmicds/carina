@@ -59,7 +59,7 @@ jobs:
 
       - name: Get Percy URL
         id: percy_url
-        if: github.event_name == 'pull_request'
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           URL=$(grep "percy.io" bslog.txt | awk '{print $NF}')
           echo "Percy URL: $URL"
