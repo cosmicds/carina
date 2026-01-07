@@ -463,7 +463,7 @@ export default defineComponent({
       sheet: null as SheetType,
       currentTool: "crossfade" as ToolType,
       tab: 0,
-      accentColor: "#c60965",
+      accentColor: "#b60965",
       networks: [
         { name: "facebook", color: "#1877f2", text: "Share" },
         { name: "twitter", color: "#1da1f2", text: "Tweet" },
