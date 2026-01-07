@@ -54,7 +54,18 @@ jobs:
           set -xeuo pipefail
           yarn serve &
           sleep 10
-          yarn test-percy -e default,firefox,edge,safari -o reports
+          yarn test-percy -e default,firefox,edge,safari -o reports 2&>1 | tee bslog.txt
+
+      - name: Get Percy URL
+        id: percy_url
+        run: |
+          URL=$(grep "percy.io" bslog.txt | awk '{print $NF}')
+          echo url=$URL >> $GITHUB_OUTPUT
+
+      - name: Invoke comment workflow
+        uses: cosmicds/carina/pr-comment.yml@main
+        with:
+          comment: "Percy diffs for this build can be found at ${{ steps.percy_url.outputs.url }}"
 
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
