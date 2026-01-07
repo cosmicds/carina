@@ -73,6 +73,6 @@ jobs:
     needs: [build]
     uses: cosmicds/carina/.github/workflows/pr-comment.yml@main
     with:
-      comment: "Percy diffs for this build can be found at ${{ steps.percy_url.outputs.url }}"
+      comment: "Percy diffs for this build can be found at ${{ needs.build.outputs.percy_url }}"
 
       
