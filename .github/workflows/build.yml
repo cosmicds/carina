@@ -5,6 +5,10 @@ on:
     branches:
       main
 
+  schedule:
+    # 9 AM on Monday
+    - cron: "0 9 * * 1"
+
 permissions: read-all
 
 jobs:
