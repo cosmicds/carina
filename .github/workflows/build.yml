@@ -14,6 +14,8 @@ permissions: read-all
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      percy_url: ${{ steps.percy_url.outputs.url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -61,13 +63,16 @@ jobs:
         run: |
           URL=$(grep "percy.io" bslog.txt | awk '{print $NF}')
           echo url=$URL >> $GITHUB_OUTPUT
-
-      - name: Invoke comment workflow
-        uses: cosmicds/carina/.github/workflows/pr-comment.yml@main
-        with:
-          comment: "Percy diffs for this build can be found at ${{ steps.percy_url.outputs.url }}"
-
+        
       - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
         uses: browserstack/github-actions/setup-local@master
         with:
           local-testing: stop
+          
+  comment:
+    needs: [build]
+    uses: cosmicds/carina/.github/workflows/pr-comment.yml@main
+    with:
+      comment: "Percy diffs for this build can be found at ${{ steps.percy_url.outputs.url }}"
+
+      
