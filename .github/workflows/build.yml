@@ -9,11 +9,10 @@ on:
     # 9 AM on Monday
     - cron: "0 9 * * 1"
 
-permissions: read-all
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: read-all
     outputs:
       percy_url: ${{ steps.percy_url.outputs.url }}
     steps:
@@ -71,6 +70,8 @@ jobs:
           
   comment:
     needs: [build]
+    permissions:
+      pull-requests: write
     uses: cosmicds/carina/.github/workflows/pr-comment.yml@main
     with:
       comment: "Percy diffs for this build can be found at ${{ needs.build.outputs.percy_url }}"
