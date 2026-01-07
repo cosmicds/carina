@@ -63,7 +63,7 @@ jobs:
           echo url=$URL >> $GITHUB_OUTPUT
 
       - name: Invoke comment workflow
-        uses: cosmicds/carina/pr-comment.yml@main
+        uses: cosmicds/carina/.github/workflows/pr-comment.yml@main
         with:
           comment: "Percy diffs for this build can be found at ${{ steps.percy_url.outputs.url }}"
 
