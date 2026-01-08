@@ -71,7 +71,7 @@ jobs:
           local-testing: stop
           
   comment:
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ (github.event_name == 'pull_request') || (github.event_name == 'pull_request_target') }}
     needs: [build]
     permissions:
       pull-requests: write
