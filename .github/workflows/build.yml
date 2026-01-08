@@ -61,6 +61,7 @@ jobs:
         id: percy_url
         run: |
           URL=$(grep "percy.io" bslog.txt | awk '{print $NF}')
+          echo "Event type: ${{ github.event_name }}"
           echo "Percy URL: $URL"
           echo url=$URL >> $GITHUB_OUTPUT
         
@@ -76,6 +77,6 @@ jobs:
       pull-requests: write
     uses: cosmicds/carina/.github/workflows/pr-comment.yml@main
     with:
-      comment: "Percy diffs for this build can be found at ${{ needs.build.outputs.percy_url }}"
+      comment: "Percy diffs for commit ${{ github.sha }} can be found at ${{ needs.build.outputs.percy_url }}"
 
       
