@@ -77,6 +77,6 @@ jobs:
       pull-requests: write
     uses: cosmicds/carina/.github/workflows/pr-comment.yml@main
     with:
-      comment: "Percy diffs for commit ${{ github.sha }} can be found at ${{ needs.build.outputs.percy_url }}"
+      comment: "Percy diffs for commit ${{ github.event.pull_request.head.sha }} can be found at ${{ needs.build.outputs.percy_url }}"
 
       
