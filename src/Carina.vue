@@ -1414,6 +1414,10 @@ video {
   height: auto;
   max-width: 500px;
   border-radius: 10px;
+
+  .v-card {
+    border-radius: 10px;
+  }
 }
 
 .error-message {
