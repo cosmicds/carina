@@ -71,15 +71,15 @@ const nightwatchConfig: Configuration = {
     firefox: {
       desiredCapabilities: {
         browserName: 'firefox',
-      },
-      'moz:firefoxOptions': {
-        args: [],
-        prefs: {
-          'webgl.enable-prototype-webgl2': true,
-          'webgl.disabled': false,
-          'webgl.force-enabled': true,
-          'layers.acceleration.force-enabled': true
-        }
+        "moz:firefoxOptions": {
+          args: [],
+          prefs: {
+            'webgl.enable-prototype-webgl2': true,
+            'webgl.disabled': false,
+            'webgl.force-enabled': true,
+            'layers.acceleration.force-enabled': true
+          },
+        },
       },
       webdriver: {
         start_process: true,

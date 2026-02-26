@@ -21,6 +21,7 @@ export interface WebDriverSettings {
 
 export interface Capabilities {
   browserName: string,
+  "moz:firefoxOptions"?: Record<string, unknown>;
 }
 
 export interface BrowserCapabilities extends Capabilities {
@@ -41,7 +42,6 @@ export interface TestEnvironment {
   selenium_port?: number;
   webdriver?: WebDriverSettings;
   verbose?: boolean;
-  "moz:firefoxOptions"?: Record<string, unknown>;
 }
 
 export interface Configuration {
@@ -86,8 +86,8 @@ export function addBrowsers(environments: { [env: string]: TestEnvironment | und
       };
 
       if (browser.toLowerCase().includes("firefox")) {
-        enableWebGLFirefox(environments[key]);
-      };
+        enableWebGLFirefox(environments[key].desiredCapabilities);
+      }
     }
   }
 }
@@ -104,9 +104,9 @@ export function addPhones(environments: { [env: string]: TestEnvironment | undef
   }
 }
 
-export function enableWebGLFirefox(firefoxSettings: TestEnvironment) {
+export function enableWebGLFirefox(firefoxCapabilities: Capabilities) {
   const optionsKey = "moz:firefoxOptions";
-  const currentOptions = firefoxSettings[optionsKey] ?? {};
+  const currentOptions = firefoxCapabilities[optionsKey] ?? {};
   const options = {
     ...currentOptions,
     args: [],
@@ -118,5 +118,5 @@ export function enableWebGLFirefox(firefoxSettings: TestEnvironment) {
     },
   };
 
-  firefoxSettings[optionsKey] = options; 
+  firefoxCapabilities[optionsKey] = options; 
 }
