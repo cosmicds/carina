@@ -185,6 +185,29 @@
         </div>
       </div>
 
+      <!-- WebGL2 not enabled dialog --> 
+      <v-dialog
+        class="error-dialog"
+        :style="cssVars"
+        v-model="showWebGL2Warning"
+        persistent
+      >
+        <v-card>
+          <div class="error-message">
+            <p>
+              <strong>This app requires WebGL 2</strong> 
+            </p>
+            <p class="mt-2">
+              Check your browser's settings and enable WebGL 2 ("graphics acceleration" on some browsers).
+            </p> 
+            <p class="mt-2">
+              You can check whether your browser supports WebGL 2
+              and get assistance <a href="https://get.webgl.org/webgl2/" target="_blank" rel="noopener noreferrer">here</a>.
+            </p> 
+          </div>
+        </v-card>
+      </v-dialog>
+
       <v-dialog
         id="video-container"
         v-model="showVideoSheet"
@@ -405,7 +428,7 @@
 </template>
 
 <script lang="ts">
-import { ImageSetLayer, Place } from "@wwtelescope/engine";
+import { ImageSetLayer, Place, WWTControl } from "@wwtelescope/engine";
 import { applyImageSetLayerSetting } from "@wwtelescope/engine-helpers";
 import { MiniDSBase, BackgroundImageset, skyBackgroundImagesets, API_BASE_URL, type UserExperienceRating } from "@cosmicds/vue-toolkit";
 import { defineComponent } from "vue";
@@ -450,6 +473,7 @@ export default defineComponent({
     const ratingOptedOut = window.localStorage.getItem("cds-carina-rating-optout")?.toLowerCase() === "true";
 
     return {
+      showWebGL2Warning: false,
       layers: {} as Record<string,ImageSetLayer>,
       cfOpacity: 50, // out of 100
       title: "Compare JWST and Hubble images of Carina!",
@@ -482,6 +506,17 @@ export default defineComponent({
 
   created() {
     this.waitForReady().then(() => {
+
+      if (!this.isWebGL2Enabled()) {
+        this.showWebGL2Warning = true;
+        this.layersLoaded = true;
+        // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
+        // @ts-expect-error `canvas` is defined
+        WWTControl.singleton.canvas.setAttribute("hidden", "true");
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        WWTControl.singleton.renderOneFrame = function() {};
+        return;
+      }
 
       this.backgroundImagesets = [...skyBackgroundImagesets];
 
@@ -705,6 +740,14 @@ export default defineComponent({
       this.showRating= false;
       this.ratingOptedOut = true;
       window.localStorage.setItem("cds-carina-rating-optout", "true");
+    },
+    isWebGL2Enabled(): boolean {
+      // It doesn't seem like there's a better way to do this than just to try and get a context
+      // https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example/Detect_WebGL
+      // NB: The engine specifically wants a webgl2 context
+      const canvas = document.createElement("canvas");
+      const gl = canvas.getContext("webgl2");
+      return gl instanceof WebGL2RenderingContext;
     }
   },
 
@@ -720,7 +763,7 @@ export default defineComponent({
       }
     },
     ready(r: boolean) {
-      if (r) {
+      if (r && !this.showWebGL2Warning) {
         this.showSplashScreen = true;
       }
     }
@@ -1364,5 +1407,19 @@ video {
     position: absolute !important;
     color: white !important;
   }
+}
+
+.error-dialog {
+  width: auto;
+  height: auto;
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+.error-message {
+  padding: 1rem;
+  border: 1px solid var(--accent-color);
+  text-align: center;
+  border-radius: 10px;
 }
 </style>
