@@ -1,6 +1,7 @@
 import Vue, { createApp } from "vue";
 
 import { FundingAcknowledgment, IconButton, CreditLogos, UserExperience } from "@cosmicds/vue-toolkit";
+import CDSPrivacyPolicy from "./CDSPrivacyPolicy.vue";
 import Carina from "./Carina.vue";
 
 import vuetify from "../plugins/vuetify";
@@ -100,6 +101,7 @@ createApp(Carina, {
   .component('funding-acknowledgment', FundingAcknowledgment)
   .component('credit-logos', CreditLogos)
   .component('user-experience', UserExperience)
+  .component('cds-privacy-policy', CDSPrivacyPolicy)
 
   // Mount
   .mount("#app");
