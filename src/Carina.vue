@@ -582,9 +582,9 @@ export default defineComponent({
     });
   },
 
-  mounted() {
-    this.ratingDisplaySetup();
-  },
+  // mounted() {
+  //   this.ratingDisplaySetup();
+  // },
 
   computed: {
     crossfadeOpacity: {
